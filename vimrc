@@ -1,9 +1,17 @@
 set nocompatible " not vi compatible
-
+" Mapleader is \ 
+execute pathogen#infect()
+syntax on
+" Enable plugins and load plugin for the detected file type .Load an indent file for the detected file type.
+filetype plugin indent on
+" Start NERDTree, unless a file or session is specified, eg. vim -S session_file.vim.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && v:this_session == '' | NERDTree | endif
 "------------------
 " Syntax and indent
 "------------------
-syntax on " turn on syntax highlighting
+" turn on syntax highlighting
+syntax on   
 set showmatch " show matching braces when text indicator is over them
 
 " highlight current line, but only in active window
@@ -95,7 +103,8 @@ if &term =~ '^screen'
     " tmux knows the extended mouse mode
     set ttymouse=xterm2
 endif
-set nofoldenable " disable folding by default
+" disable folding by default
+set nofoldenable 
 
 "--------------------
 " Misc configurations
