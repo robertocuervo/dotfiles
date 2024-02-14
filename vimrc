@@ -42,23 +42,40 @@ set autoindent
 "---------------------
 " Basic editing config
 "---------------------
-set shortmess+=I " disable startup message
-set nu " number lines
-set rnu " relative line numbering
-set incsearch " incremental search (as string is being typed)
-set hls " highlight search
-set listchars=tab:>>,nbsp:~ " set list to see tabs and non-breakable spaces
-set lbr " line break
-set scrolloff=5 " show lines above and below cursor (when possible)
-set noshowmode " hide mode
+" disable startup message
+set shortmess+=I 
+" number lines
+set nu 
+" relative line numbering
+set rnu 
+" incremental search (as string is being typed)
+set incsearch 
+" highlight search
+set hls 
+" set list to see tabs and non-breakable spaces
+set listchars=tab:>>,nbsp:~ 
+" line break
+set lbr 
+" show lines above and below cursor (when possible)
+set scrolloff=5 
+" show mode
+set showmode 
+" Show the status on the second to last line.
 set laststatus=2
-set backspace=indent,eol,start " allow backspacing over everything
-set timeout timeoutlen=1000 ttimeoutlen=100 " fix slow O inserts
-set lazyredraw " skip redrawing screen in some cases
-set autochdir " automatically set current directory to directory of last opened file
-set hidden " allow auto-hiding of edited buffers
-set history=8192 " more history
-set nojoinspaces " suppress inserting two spaces between sentences
+" allow backspacing over everything
+set backspace=indent,eol,start 
+" fix slow O inserts
+set timeout timeoutlen=1000 ttimeoutlen=100 
+" skip redrawing screen in some cases
+set lazyredraw 
+" automatically set current directory to directory of last opened file
+set autochdir 
+" allow auto-hiding of edited buffers
+set hidden 
+" more history
+set history=8192 
+" suppress inserting two spaces between sentences
+set nojoinspaces 
 " use 4 spaces instead of tabs during formatting
 set expandtab
 set tabstop=4
@@ -70,6 +87,9 @@ set smartcase
 " tab completion for files/bufferss
 set wildmode=longest,list
 set wildmenu
+" There are certain files that we would never want to edit with Vim.
+" Wildmenu will ignore files with these extensions.
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 set mouse+=a " enable mouse mode (scrolling, selection, etc)
 if &term =~ '^screen'
     " tmux knows the extended mouse mode
@@ -85,6 +105,8 @@ set nofoldenable " disable folding by default
 map <C-a> <Nop>
 map <C-x> <Nop>
 nmap Q <Nop>
+" Copy the entire file to the system register
+nnoremap <leader>X ggVGy
 
 " disable audible bell
 set noerrorbells visualbell t_vb=
@@ -134,8 +156,12 @@ command -nargs=0 Sudow w !sudo tee % >/dev/null
 "---------------------
 
 " nerdtree
-nnoremap <Leader>n :NERDTreeToggle<CR>
 nnoremap <Leader>f :NERDTreeFind<CR>
+" Map the F3 key to toggle NERDTree open and close.
+nnoremap <F3> :NERDTreeToggle<cr>
+" Have nerdtree ignore certain files and directories.
+let NERDTreeIgnore=['\.git$', '\.jpg$', '\.mp4$', '\.ogg$', '\.iso$', '\.pdf$', '\.pyc$', '\.odt$', '\.png$', '\.gif$', '\.db$']
+
 
 " buffergator
 let g:buffergator_suppress_keymaps = 1
