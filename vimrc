@@ -1,18 +1,18 @@
 set nocompatible " not vi compatible
 " Mapleader is \ 
 execute pathogen#infect()
-syntax on
-" Enable plugins and load plugin for the detected file type .Load an indent file for the detected file type.
+" Enable plugins and load plugin for the detected file type .Load an indent file for the detected file type. Enable file type detection
 filetype plugin indent on
-" Start NERDTree, unless a file or session is specified, eg. vim -S session_file.vim.
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && v:this_session == '' | NERDTree | endif
 "------------------
 " Syntax and indent
 "------------------
 " turn on syntax highlighting
 syntax on   
-set showmatch " show matching braces when text indicator is over them
+
+set autoindent
+" show matching braces when text indicator is over them
+set showmatch 
+
 
 " highlight current line, but only in active window
 augroup CursorLineOnlyInActiveWindow
@@ -44,8 +44,6 @@ else
     highlight CursorLineNr cterm=NONE
 endif
 
-filetype plugin indent on " enable file type detection
-set autoindent
 
 "---------------------
 " Basic editing config
@@ -165,12 +163,20 @@ command -nargs=0 Sudow w !sudo tee % >/dev/null
 "---------------------
 
 " nerdtree
+
+" Start NERDTree, unless a file or session is specified, eg. vim -S session_file.vim.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && v:this_session == '' | NERDTree | endif
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
 nnoremap <Leader>f :NERDTreeFind<CR>
 " Map the F3 key to toggle NERDTree open and close.
 nnoremap <F3> :NERDTreeToggle<cr>
 " Have nerdtree ignore certain files and directories.
 let NERDTreeIgnore=['\.git$', '\.jpg$', '\.mp4$', '\.ogg$', '\.iso$', '\.pdf$', '\.pyc$', '\.odt$', '\.png$', '\.gif$', '\.db$']
-
+" Open the existing NERDTree on each new tab.
+autocmd BufWinEnter * if &buftype != 'quickfix' && getcmdwintype() == '' | silent NERDTreeMirror | endif
 
 " buffergator
 let g:buffergator_suppress_keymaps = 1
