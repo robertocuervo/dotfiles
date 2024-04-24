@@ -44,7 +44,6 @@ else
     highlight CursorLineNr cterm=NONE
 endif
 
-
 "---------------------
 " Basic editing config
 "---------------------
@@ -177,6 +176,9 @@ nnoremap <F3> :NERDTreeToggle<cr>
 let NERDTreeIgnore=['\.git$', '\.jpg$', '\.mp4$', '\.ogg$', '\.iso$', '\.pdf$', '\.pyc$', '\.odt$', '\.png$', '\.gif$', '\.db$']
 " Open the existing NERDTree on each new tab.
 autocmd BufWinEnter * if &buftype != 'quickfix' && getcmdwintype() == '' | silent NERDTreeMirror | endif
+" Change color of directories in NERDTree to orange or something like that
+hi Directory guifg=#FF0000 ctermfg=red
+
 
 " buffergator
 let g:buffergator_suppress_keymaps = 1
