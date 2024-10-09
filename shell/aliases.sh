@@ -14,6 +14,22 @@ alias mv='mv -i'
 # git related aliases
 alias gag='git exec ag'
 
+function cpfilepath() {
+	readlink -f $1 | xclip -selection clipbard
+}
+
+
+
+alias c="clear" 
+alias notes="code ~/markdown"
+
+alias vimnotes="cd ~/markdown; vim"
+alias cpwd='pwd | xclip -selection clipboard; echo "Copied current directory to clipboard"'
+
+alias mytmux="tmux new-session -s mycode \;  send-keys 'cd /home/rcuervo/repositories/meteodrone; vim' C-m \; split-window -v \; send-keys 'cd /home/rcuervo/repositories/meteodrone' C-m"
+# alias cpfilepath='cpfilepath "$(cpfilepath)"'
+
+
 # Update dotfiles
 dfu() {
     (
